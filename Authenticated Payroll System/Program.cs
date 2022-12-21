@@ -1,6 +1,8 @@
 using Authenticated_Payroll_System.Data;
+using Authenticated_Payroll_System.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Authenticated_Payroll_System.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +13,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<AttendanceService>();
+builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<SalaryService>();
+builder.Services.AddScoped<MonthlySalaryService>();
+builder.Services.AddScoped<LeaveApplicationService>();
 
 var app = builder.Build();
 

@@ -1,0 +1,170 @@
+﻿@model List<Authenticated_Payroll_System.ViewModels.MonthlySalaryViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+
+        <div class="d-flex justify-content-end shadow-sm p-3 pt-1 pb-0 mb-4 bg-body rounded">
+            <div class="col-6">
+                <p class="fs-4 fw-semibold text-primary">Salary List</p>
+            </div>
+            <div>
+                <form asp-action="Index" method="get">
+                    <div class="d-flex form-actions no-color">
+                        <div class="me-2">
+                            <input type="month" name="MonthYear" class="btn btn-outline-secondary btn-sm" />
+                        </div>
+                        <div class="d-flex me-2">
+                            <div class="me-2">
+                                <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
+                                    <option>Select Employee</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <a asp-controller="MonthlySalary" asp-action="Genarate" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle-fill"></i> &nbsp;Generate Salary
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-borderd table-striped shadow-sm">
+        <thead>
+            <tr class="small text-center">
+                @* <th>
+                ID
+                </th>*@
+                <th>
+                    EmployeeId
+                </th>
+                <th>
+                    EmployeeName
+                </th>
+                <th>
+                    Month
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Basic
+                </th>
+                <th>
+                    Home Allownace
+                </th>
+                <th>
+                    Medical Expense
+                </th>
+                <th>
+                    Working Days
+                </th>
+                <th>
+                    Present Days
+                </th>
+                <th>
+                    Leave Days
+                </th>
+                <th>
+                    TotalPay
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="small text-center">
+                    @*<td width="10%">
+                @item.Id
+                </td>*@
+                    <td width="10%">
+                        @item.EmployeeId
+                    </td>
+                    <td width="15%">
+                        @item.EmployeeName
+                    </td>
+                    <td width="10%">
+                        @switch (@item.Month)
+                        {
+                            case 1:
+                                <div>Januray</div>
+                                break;
+                            case 2:
+                                <div>February</div>
+                                break;
+                            case 3:
+                                <div>March</div>
+                                break;
+                            case 4:
+                                <div>April</div>
+                                break;
+                            case 5:
+                                <div>May</div>
+                                break;
+                            case 6:
+                                <div>June</div>
+                                break;
+                            case 7:
+                                <div>July</div>
+                                break;
+                            case 8:
+                                <div>August</div>
+                                break;
+                            case 9:
+                                <div>September</div>
+                                break;
+                            case 10:
+                                <div>October</div>
+                                break;
+                            case 11:
+                                <div>November</div>
+                                break;
+                            case 12:
+                                <div>December</div>
+                                break;
+
+                            default:
+                                <div>Wrong</div>
+                                break;
+                        }
+                    </td>
+                    <td width="5%">
+                        @item.Year
+                    </td>
+                    <td width="10%">
+                        @item.Basic Tk
+                    </td>
+                    <td width="13%">
+                        @item.HomeAllowance Tk
+                    </td>
+                    <td width="13%">
+                        @item.MedicalExpense Tk
+                    </td>
+                    <td width="10%">
+                        @item.WorkingDays
+                    </td>
+                    <td width="10%">
+                        @item.PresentDays
+                    </td>
+                    <td width="10%">
+                        @item.LeaveDays
+                    </td>
+                    <td width="13%">
+                        @item.TotalPay Tk
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

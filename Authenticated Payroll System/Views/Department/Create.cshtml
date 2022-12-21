@@ -1,0 +1,41 @@
+﻿@model Authenticated_Payroll_System.ViewModels.DepartmentViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<body>
+    <div class="px-lg-5 border rounded-2 mx-lg-5 my-lg-5 small">
+        <form class="row g-3  p-2 px-lg-5 mx-lg-5 my-lg-5" method="post">
+            <div>
+                <h2 class="text-primary">Create Department</h2>
+                <hr />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Id"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a asp-controller="Department" asp-action="Index" class="btn btn-secondary" style="width:150px">
+                    Go back
+                </a>
+                <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

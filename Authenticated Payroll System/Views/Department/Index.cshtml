@@ -1,0 +1,61 @@
+﻿@model List<Authenticated_Payroll_System.ViewModels.DepartmentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<body>
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="d-flex justify-content-end shadow-sm p-3 pt-1 pb-0 mb-4 bg-body rounded">
+                <div class="col-10">
+                    <p class="fs-4 fw-semibold text-primary">Department List</p>
+                </div>
+                <div class="text-end">
+                    <a asp-controller="Department" asp-action="Create" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-circle-fill"></i> &nbsp;New Department
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-borderd table-striped shadow-sm">
+            <thead>
+                <tr class="small text-center">
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="small text-center">
+                        <td width="5%">
+                            @item.Id
+                        </td>
+                        <td width="20%">
+                            @item.Name
+                        </td>
+                        <td>
+                            <div class="btn-group mb-0" role="group">
+                                <a asp-controller="Employee" asp-action="Index" asp-route-departmentId="@item.Id" class="btn btn-dark rounded-1 btn-sm"><i class="bi bi-card-list"></i> View</a>
+                                <a asp-controller="Department" asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary mx-1 rounded-1 btn-sm"> <i class="bi bi-pencil-square"></i> </a>
+                                <a asp-controller="Department" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1 rounded-1 btn-sm"> <i class="bi bi-trash3-fill"></i> </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+
+

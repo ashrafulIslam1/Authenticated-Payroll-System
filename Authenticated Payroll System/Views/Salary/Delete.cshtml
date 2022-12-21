@@ -1,0 +1,27 @@
+﻿@model Authenticated_Payroll_System.ViewModels.SalaryViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="px-lg-5 mx-lg-5 my-lg-5 small">
+    <div>
+        <h2 class="text-primary fs-4">Delete Salary??</h2>
+    </div>
+    <form method="post" asp-action="DeleteAll">
+        <input asp-for="Id" hidden />
+
+        <div class="d-flex mt-3 justify-content-between mt-2">
+            <a asp-controller="Salary" asp-action="Index" class="btn btn-secondary btn-sm" style="width:150px">
+                Go back
+            </a>
+            <button type="submit" class="btn btn-danger btn-sm" style="width:150px">Delete</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

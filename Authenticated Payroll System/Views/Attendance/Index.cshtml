@@ -1,0 +1,112 @@
+﻿@model List<Authenticated_Payroll_System.ViewModels.AttendanceViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="d-flex justify-content-end shadow-sm p-3 pt-1 pb-0 mb-4 bg-body rounded">
+            <div class="col-5">
+                <p class="fs-4 fw-semibold text-primary">Attendance List</p>
+            </div>
+            <div>
+                <form asp-action="Index" method="get">
+                    <div class="d-flex form-actions no-color">
+                        <div class="me-2">
+                            <input type="date" name="fromDate" class="btn btn-outline-secondary btn-sm" />
+                            <div>From Date</div>
+                        </div>
+                        <div class="me-2">
+                            <input type="date" name="toDate" class="btn btn-outline-secondary btn-sm" />
+                            <div>To Date</div>
+                        </div>
+                        <div class="d-flex me-2">
+                            <div class ="me-2">
+                                <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
+                                    <option>Select Employee</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="text-end">
+                <a asp-controller="Attendance" asp-action="Create" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle-fill"></i> New
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <table class="table table-borderd table-striped shadow-sm">
+        <thead>
+            <tr class="small text-center">
+                @*<th>
+                    AttendanceID
+                </th>*@
+                <th>
+                    EmployeeID
+                </th>
+                <th>
+                    EmployeeName
+                </th>
+                <th>
+                    InTime
+                </th>
+                <th>
+                    OutTime
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Status
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr class="small text-center">
+                    @*<td width="10%">
+                        @item.AttendanceId
+                    </td>*@
+                    <td width="10%">
+                        @item.EmployeeId
+                    </td>
+                    <td width="15%">
+                        @item.EmployeeName
+                    </td>
+                    <td width="10%">
+                        @item.InTime.ToShortTimeString()
+                    </td>
+                    <td width="10%">
+                        @item.OutTime.ToShortTimeString()
+                    </td>
+                    <td width="10%">
+                        @item.Date.ToShortDateString()
+                    </td>
+                    <td width="10%">
+                        @(item.Status == 1 ? "Present" : "Absent")
+                    </td>
+                    <td>
+                        <div class="btn-group mb-0" role="group">
+                            <a asp-controller="Attendance" asp-action="Update" asp-route-id="@item.AttendanceId" class="btn btn-primary rounded-1 btn-sm"> <i class="bi bi-pencil-square"></i></a>
+                            <a asp-controller="Attendance" asp-action="Delete" asp-route-id="@item.AttendanceId" class="btn btn-danger mx-1 rounded-1 btn-sm"> <i class="bi bi-trash3-fill"></i></a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

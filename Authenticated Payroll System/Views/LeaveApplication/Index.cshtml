@@ -1,0 +1,130 @@
+﻿@model List<Authenticated_Payroll_System.ViewModels.LeaveApllicationViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="d-flex justify-content-end shadow-sm p-3 pt-1 pb-0 mb-4 bg-body rounded">
+            <div class="col-4">
+                <p class="fs-4 fw-semibold text-primary">Leave Application List</p>
+            </div>
+            <div>
+                <form asp-action="Index" method="get">
+                    <div class="d-flex form-actions no-color">
+                        <div class="me-2">
+                            <input type="date" name="fromDate" class="btn btn-outline-secondary btn-sm" />
+                            <div>From Date</div>
+                        </div>
+                        <div class="me-3">
+                            <input type="date" name="toDate" class="btn btn-outline-secondary btn-sm" />
+                            <div>To Date</div>
+                        </div>
+                        <div class="d-flex me-2">
+                            <div class="me-2">
+                                <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
+                                    <option>Select Employee</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="text-end">
+                <a asp-controller="LeaveApplication" asp-action="Create" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle-fill"></i> &nbsp;New Application
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-borderd table-striped shadow-sm">
+        <thead>
+            <tr class="small text-center">
+                @*<th>
+                    ID
+                </th>*@
+                <th>
+                    Employee Id
+                </th>
+                <th>
+                    Employee Name
+                </th>
+                <th>
+                    Reason
+                </th>
+                <th>
+                    Leave Type
+                </th>
+                <th>
+                    From Date
+                </th>
+                <th>
+                    To Date
+                </th>
+                <th>
+                    Apply Date
+                </th>
+                <th>
+                    Approval Date
+                </th>
+                <th>
+                    Approaved By
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="small text-center">
+                    @*<td>
+                        @item.Id
+                    </td>*@
+                    <td width="10%">
+                        @item.EmployeeId
+                    </td>
+                    <td width ="20%">
+                        @item.EmployeeName
+                    </td>
+                    <td width="13%">
+                        @item.ReasonOfLeave
+                    </td>
+                    <td width="14%">
+                        @item.LeaveType
+                    </td>
+                    <td>
+                        @item.FromDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.ToDate.ToShortDateString()
+                    </td>
+                    <td width="10%">
+                        @item.ApplicationDate.ToShortDateString()
+                    </td>
+                    <td width="12%">
+                        @item.ApprovalDate?.ToShortDateString()
+                    </td>
+                    <td width="12%">
+                        @item.ApproavedBy
+                    </td>
+                    <td>
+                        <div class="btn-group mb-0" role="group">
+                            <a asp-controller="LeaveApplication" asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary rounded-1 btn-sm"> <i class="bi bi-pencil-square"></i></a>
+                            <a asp-controller="LeaveApplication" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1 rounded-1 btn-sm"> <i class="bi bi-trash3-fill"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
