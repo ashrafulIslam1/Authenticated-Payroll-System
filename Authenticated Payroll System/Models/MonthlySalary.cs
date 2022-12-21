@@ -15,6 +15,6 @@ namespace Authenticated_Payroll_System.Models
         public double Basic { get; set; }
         public double HomeAllowance { get; set; }
         public double MedicalExpense { get; set; }
-        public double TotalPay { get; set; }      
+        public double TotalPay { get; set; }
     }
 }

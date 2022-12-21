@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Authenticated_Payroll_System.Models;
 using System;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Authenticated_Payroll_System.Services;
 
@@ -94,7 +95,6 @@ public class MonthlySalaryService
                 Year = year,
                 Month = month,
                 EmployeeId = item.EmployeeId,
-
                 Basic = item.Basic,
                 HomeAllowance = item.HomeAllowance,
                 MedicalExpense = item.MedicalExpense,
@@ -133,6 +133,39 @@ public class MonthlySalaryService
         if (employeeId != null)
         {
             query = query.Where(s => s.EmployeeId == (employeeId));
+        }
+
+        if (mm != null && yy != null)
+        {
+            query = query.Where(s => s.Year == yy && s.Month == mm);
+        }
+
+        return query.ToList();
+    }
+
+    public List<MonthlySalaryViewModel> GetEmployee(int? mm, int? yy, string userName)
+    {
+        var query = (from s in _dbContext.MonthlySalary
+                     join e in _dbContext.Employees on s.EmployeeId equals e.Id
+                     select new MonthlySalaryViewModel
+                     {
+                         Id = s.Id,
+                         EmployeeId = s.EmployeeId,
+                         EmployeeName = e.Name,
+                         Email = e.Email,
+                         Basic = s.Basic,
+                         HomeAllowance = s.HomeAllowance,
+                         MedicalExpense = s.MedicalExpense,
+                         TotalPay = s.TotalPay,
+                         PresentDays = s.PresentDays,
+                         WorkingDays = s.WorkingDays,
+                         LeaveDays = s.LeaveDays,
+                         Year = s.Year,
+                         Month = s.Month,
+                     }).AsQueryable();
+        if(userName != null)
+        {
+            query = query.Where(s => s.Email == (userName));
         }
 
         if (mm != null && yy != null)

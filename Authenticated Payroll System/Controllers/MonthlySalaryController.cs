@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace Authenticated_Payroll_System.Controllers
 {
@@ -26,11 +27,25 @@ namespace Authenticated_Payroll_System.Controllers
         {
             int? _month = monthYear == null ? null : monthYear.Value.Month;
             int? _year = monthYear == null ? null : monthYear.Value.Year;
-
-            var query = _monthlysalaryService.GetAll(employeeId, _month, _year);
-
             ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
-            return View(query);
+
+            //var query = _monthlysalaryService.GetAll(employeeId, _month, _year);
+            //return View(query);
+
+
+            string email = "rabea.hira@gmail.com";
+            if (User.IsInRole("Hr"))
+            {
+                var query = _monthlysalaryService.GetAll(employeeId, _month, _year);
+                return View(query);
+            }
+            else
+            {
+                var query = _monthlysalaryService.GetEmployee(_month, _year, email);
+                return View(query);
+            }
+
+
         }
 
         [HttpGet]

@@ -99,7 +99,38 @@ public class LeaveApplicationService
         return query.ToList();
 	}
 
-	public LeaveApllicationViewModel? GetById(int id)
+    public List<LeaveApllicationViewModel> GetEmployee(DateTime? fromDate, DateTime? toDate, String userName)
+    {
+        var query = (from s in _dbContext.LeaveApplications
+                     join e in _dbContext.Employees on s.EmployeeId equals e.Id
+                     select new LeaveApllicationViewModel
+                     {
+                         Id = s.Id,
+                         EmployeeId = s.EmployeeId,
+                         EmployeeName = e.Name,
+                         Email = e.Email,
+                         ApplicationDate = s.ApplicationDate,
+                         FromDate = s.FromDate,
+                         ToDate = s.ToDate,
+                         ReasonOfLeave = s.ReasonOfLeave,
+                         LeaveType = s.LeaveType,
+                         ApprovalDate = s.ApprovalDate,
+                         ApproavedBy = s.ApproavedBy,
+
+                     }).AsQueryable();
+
+        if (userName != null)
+        {
+            query = query.Where(s => s.Email == (userName));
+        }
+        if (fromDate.HasValue && toDate.HasValue)
+        {
+            query = query.Where(s => s.FromDate >= fromDate && s.ToDate <= toDate);
+        }
+        return query.ToList();
+    }
+
+    public LeaveApllicationViewModel? GetById(int id)
 	{
         var data = (from s in _dbContext.LeaveApplications
 					where s.Id == id

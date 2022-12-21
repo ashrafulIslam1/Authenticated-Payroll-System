@@ -25,14 +25,25 @@ namespace Authenticated_Payroll_System.Controllers
 
         public IActionResult Index(int? EmployeeId, DateTime? fromDate, DateTime? toDate)
         {
-            var query = _leaveApplicationService.GetAll(EmployeeId, fromDate, toDate);
-
+            ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
             ViewData["fromDate"] = fromDate;
             ViewData["toDate"] = toDate;
 
-            ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
+            //var query = _leaveApplicationService.GetAll(EmployeeId, fromDate, toDate);
+            //return View(query);
 
-            return View(query);
+            string email = "rabea.hira@gmail.com";
+
+            if (User.IsInRole("Hr"))
+            {
+                var query = _leaveApplicationService.GetAll(EmployeeId, fromDate, toDate);
+                return View(query);
+            }
+            else
+            {
+                var query = _leaveApplicationService.GetEmployee(fromDate, toDate, email);
+                return View(query);
+            }
         }
 
         [HttpGet]

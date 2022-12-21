@@ -20,5 +20,6 @@ namespace Authenticated_Payroll_System.ViewModels
         public double MedicalExpense { get; set; }
 
         public double TotalPay { get; set; }
+        public string? Email { get; set; }
     }
 }

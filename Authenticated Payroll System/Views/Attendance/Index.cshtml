@@ -22,11 +22,14 @@
                             <div>To Date</div>
                         </div>
                         <div class="d-flex me-2">
-                            <div class ="me-2">
-                                <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
-                                    <option>Select Employee</option>
-                                </select>
-                            </div>
+                            @if (User.IsInRole("Hr"))
+                            {
+                                <div class="me-2">
+                                    <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
+                                        <option>Select Employee</option>
+                                    </select>
+                                </div>
+                            }
                             <div>
                                 <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
                             </div>

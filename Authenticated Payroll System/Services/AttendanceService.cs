@@ -89,6 +89,35 @@ public class AttendanceService
         return query.ToList();
     }
 
+    public List<AttendanceViewModel> GetEmployee(DateTime? fromDate, DateTime? toDate, string userName)
+    {
+        var query = (from s in _dbContext.Attendances
+                     join e in _dbContext.Employees on s.EmployeeId equals e.Id
+                     orderby s.Date
+                     select new AttendanceViewModel
+                     {
+                         AttendanceId = s.AttendanceId,
+                         EmployeeId = s.EmployeeId,
+                         Email = e.Email,
+                         EmployeeName = e.Name,
+                         Date = s.Date,
+                         InTime = s.InTime,
+                         OutTime = s.OutTime,
+                         Status = s.InTime == DateTime.MinValue || s.OutTime == DateTime.MinValue ? 0 : 1
+                         // query.Where(x => x.Status == 1).Count();
+                     }).AsQueryable();
+
+        if (userName != null)
+        {
+            query = query.Where(s => s.Email == (userName));
+        }
+        if (fromDate.HasValue && toDate.HasValue)
+        {
+            query = query.Where(s => s.Date >= fromDate && s.Date <= toDate);
+        }
+        return query.ToList();
+    }
+
     public AttendanceViewModel? GetById(int id)
     {
         var data = (from s in _dbContext.Attendances

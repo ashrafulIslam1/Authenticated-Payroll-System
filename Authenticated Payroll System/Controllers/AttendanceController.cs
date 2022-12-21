@@ -10,7 +10,7 @@ using System;
 
 namespace Authenticated_Payroll_System.Controllers
 {
-    [Authorize(Roles = "Employee,HR")]
+    [Authorize(Roles = "Employee,Hr")]
     public class AttendanceController : Controller
     {
         private AttendanceService _attendanceService;
@@ -24,14 +24,26 @@ namespace Authenticated_Payroll_System.Controllers
 
         public IActionResult Index(int? EmployeeId, DateTime? fromDate, DateTime toDate)
         {
-            var query = _attendanceService.GetAll(EmployeeId, fromDate, toDate);
-
             ViewData["fromDate"] = fromDate;
             ViewData["toDate"] = toDate;
 
             ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
 
-            return View(query);
+            //var query = _attendanceService.GetAll(EmployeeId, fromDate, toDate);
+            //return View(query);
+
+            string email = "rabea.hira@gmail.com";
+
+            if (User.IsInRole("Hr"))
+            {
+                var query = _attendanceService.GetAll(EmployeeId, fromDate, toDate);
+                return View(query);
+            }
+            else
+            {
+                var query = _attendanceService.GetEmployee(fromDate, toDate, email);
+                return View(query);
+            }
         }
 
         [HttpGet]

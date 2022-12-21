@@ -25,5 +25,6 @@ namespace Authenticated_Payroll_System.ViewModels
         public DateTime Date { get; set; }
 
         public int Status { get; set; }
+        public string? Email { get; set; }
     }
 }

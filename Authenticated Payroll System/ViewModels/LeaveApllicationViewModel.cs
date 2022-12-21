@@ -30,6 +30,8 @@ namespace Authenticated_Payroll_System.ViewModels
 
         [Display(Name = "Approaved By")]
         public string? ApproavedBy { get; set; }
-        
+
+        public string? Email { get; set; }
+
     }
 }
