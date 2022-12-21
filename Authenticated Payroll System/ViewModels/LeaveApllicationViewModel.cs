@@ -33,5 +33,7 @@ namespace Authenticated_Payroll_System.ViewModels
 
         public string? Email { get; set; }
 
+        public int isApproved { get; set; }
+
     }
 }

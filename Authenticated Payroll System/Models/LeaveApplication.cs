@@ -14,4 +14,5 @@ public class LeaveApplication
     public DateTime ApplicationDate { get; set; }
     public DateTime? ApprovalDate { get; set; }
     public string? ApproavedBy { get; set; }
+    public int isApproved { get; set; }
 }

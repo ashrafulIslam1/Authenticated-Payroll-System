@@ -63,7 +63,7 @@ public class MonthlySalaryService
                           }).ToList();
 
         var leaves = (from s in _dbContext.LeaveApplications
-                     where s.FromDate.Month == month && s.ToDate.Month == month && s.FromDate.Year == year && s.ToDate.Year == year
+                     where s.FromDate.Month == month && s.ToDate.Month == month && s.FromDate.Year == year && s.ToDate.Year == year && s.isApproved == 1
                      group s by s.EmployeeId into c
                      select new
                      {

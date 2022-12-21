@@ -101,6 +101,23 @@ namespace Authenticated_Payroll_System.Controllers
             ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
             return View(updateLeaveApplicatioin);
         }
+        [HttpGet]
+        public void UpdatebyHR(int id)
+        {
+            if (id == 0)
+            {
+                return;
+            }
+            var updateLeaveApplicatioin = _leaveApplicationService.GetById(id);
+
+            if (updateLeaveApplicatioin == null)
+            {
+                return;
+            }
+            _leaveApplicationService.UpdateByHr(id);
+           
+           
+        }
 
         [HttpPost]
         public IActionResult Update(LeaveApllicationViewModel viewModel)

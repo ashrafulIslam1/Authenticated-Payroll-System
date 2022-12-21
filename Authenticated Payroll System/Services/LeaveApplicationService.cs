@@ -29,8 +29,7 @@ public class LeaveApplicationService
 			ToDate = viewModel.ToDate,
 			ReasonOfLeave = viewModel.ReasonOfLeave,
 			LeaveType = viewModel.LeaveType,
-			ApprovalDate = viewModel.ApprovalDate,
-			ApproavedBy = viewModel.ApproavedBy,
+            isApproved = 0,
 		};
 
 		_dbContext.LeaveApplications.Add(model); // Here 'LeaveApplications' is the table name
@@ -148,5 +147,21 @@ public class LeaveApplicationService
 
                     }).SingleOrDefault();
         return data;
+    }
+
+    public void UpdateByHr(int? id)
+    {
+        var model = _dbContext.LeaveApplications.Find(id);
+  
+        if (model != null)
+        {
+            model.isApproved = 1;
+            model.ApprovalDate = DateTime.Now;
+            model.ApproavedBy = "HR";
+
+            _dbContext.LeaveApplications.Update(model);
+            _dbContext.SaveChanges();
+        }
+        
     }
 }
