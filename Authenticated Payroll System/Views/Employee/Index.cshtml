@@ -27,11 +27,14 @@
                 </div>
             </form>
  
-            <div>
-                <a asp-controller="Employee" asp-action="Create" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-circle-fill"></i> &nbsp;New
-                </a>
-            </div>
+            @if (User.IsInRole("Hr"))
+            {
+                <div>
+                    <a asp-controller="Employee" asp-action="Create" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-circle-fill"></i> &nbsp;New
+                    </a>
+                </div>
+            }
         </div>
     </div>
 
@@ -97,11 +100,13 @@
                         @item.MobileNo
                     </td>
                     <td>
-                        <div class="btn-group mb-0" role="group">
-                            <a asp-controller="Employee" asp-action="Update" asp-route-id="@item.Id" class="btn  btn-primary rounded-1 btn-sm"> <i class="bi bi-pencil-square"></i></a>
-                            <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1 rounded-1 btn-sm"> <i class="bi bi-trash3-fill"></i></a>
-                        </div>
-
+                        @if(User.IsInRole("Hr"))
+                        {
+                            <div class="btn-group mb-0" role="group">
+                                <a asp-controller="Employee" asp-action="Update" asp-route-id="@item.Id" class="btn  btn-primary rounded-1 btn-sm"> <i class="bi bi-pencil-square"></i></a>
+                                <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-1 rounded-1 btn-sm"> <i class="bi bi-trash3-fill"></i></a>
+                            </div>
+                        }
                     </td>
                 </tr>
             }

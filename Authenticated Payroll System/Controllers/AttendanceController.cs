@@ -5,10 +5,12 @@ using Authenticated_Payroll_System.ViewModels;
 using Authenticated_Payroll_System.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 using System;
 
 namespace Authenticated_Payroll_System.Controllers
 {
+    [Authorize(Roles = "Employee,HR")]
     public class AttendanceController : Controller
     {
         private AttendanceService _attendanceService;

@@ -31,11 +31,14 @@
                 </form>
             </div>
 
-            <div>
-                <a asp-controller="MonthlySalary" asp-action="Genarate" class="btn btn-primary btn-sm">
-                    <i class="bi bi-plus-circle-fill"></i> &nbsp;Generate Salary
-                </a>
-            </div>
+            @if(User.IsInRole("Hr"))
+            {
+                <div>
+                    <a asp-controller="MonthlySalary" asp-action="Genarate" class="btn btn-primary btn-sm">
+                        <i class="bi bi-plus-circle-fill"></i> &nbsp;Generate Salary
+                    </a>
+                </div>
+            }
         </div>
     </div>
 

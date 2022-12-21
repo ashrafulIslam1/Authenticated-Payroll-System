@@ -6,9 +6,12 @@ using Authenticated_Payroll_System.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Authenticated_Payroll_System.Controllers
 {
+    [Authorize(Roles = "Employee, Hr")]
     public class LeaveApplicationController : Controller
     {
         private LeaveApplicationService _leaveApplicationService;
