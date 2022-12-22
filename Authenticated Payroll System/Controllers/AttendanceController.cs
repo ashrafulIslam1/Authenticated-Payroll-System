@@ -29,10 +29,7 @@ namespace Authenticated_Payroll_System.Controllers
 
             ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
 
-            //var query = _attendanceService.GetAll(EmployeeId, fromDate, toDate);
-            //return View(query);
-
-            string email = "rabea.hira@gmail.com";
+            string email = User.Identity?.Name;
 
             if (User.IsInRole("Hr"))
             {

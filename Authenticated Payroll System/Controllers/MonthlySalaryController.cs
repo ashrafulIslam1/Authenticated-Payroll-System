@@ -33,7 +33,7 @@ namespace Authenticated_Payroll_System.Controllers
             //return View(query);
 
 
-            string email = "rabea.hira@gmail.com";
+            string email = User.Identity?.Name;
             if (User.IsInRole("Hr"))
             {
                 var query = _monthlysalaryService.GetAll(employeeId, _month, _year);

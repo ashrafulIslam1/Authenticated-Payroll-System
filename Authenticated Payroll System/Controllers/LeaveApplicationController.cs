@@ -32,7 +32,9 @@ namespace Authenticated_Payroll_System.Controllers
             //var query = _leaveApplicationService.GetAll(EmployeeId, fromDate, toDate);
             //return View(query);
 
-            string email = "rabea.hira@gmail.com";
+            //string email = User.UserName;
+
+            string email = User.Identity?.Name;
 
             if (User.IsInRole("Hr"))
             {
@@ -101,8 +103,9 @@ namespace Authenticated_Payroll_System.Controllers
             ViewBag.employeelist = new SelectList(_employeeService.GetDropDown(), "Value", "Text");
             return View(updateLeaveApplicatioin);
         }
+
         [HttpGet]
-        public void UpdatebyHR(int id)
+        public void ApprovedByHr(int id)
         {
             if (id == 0)
             {
@@ -114,9 +117,23 @@ namespace Authenticated_Payroll_System.Controllers
             {
                 return;
             }
-            _leaveApplicationService.UpdateByHr(id);
-           
-           
+            _leaveApplicationService.ApprovedByHr(id);
+        }
+
+        [HttpGet]
+        public void RejectByHr(int id)
+        {
+            if (id == 0)
+            {
+                return;
+            }
+            var updateLeaveApplicatioin = _leaveApplicationService.GetById(id);
+
+            if (updateLeaveApplicatioin == null)
+            {
+                return;
+            }
+            _leaveApplicationService.RejectByHr(id);
         }
 
         [HttpPost]

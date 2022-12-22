@@ -84,7 +84,7 @@ public class LeaveApplicationService
 						LeaveType = s.LeaveType,
 						ApprovalDate = s.ApprovalDate,
 						ApproavedBy = s.ApproavedBy,
-
+                        isApproved  = s.isApproved,
 					}).AsQueryable();
 
         if (EmployeeId != null)
@@ -115,7 +115,7 @@ public class LeaveApplicationService
                          LeaveType = s.LeaveType,
                          ApprovalDate = s.ApprovalDate,
                          ApproavedBy = s.ApproavedBy,
-
+                         isApproved = s.isApproved,
                      }).AsQueryable();
 
         if (userName != null)
@@ -149,7 +149,7 @@ public class LeaveApplicationService
         return data;
     }
 
-    public void UpdateByHr(int? id)
+    public void ApprovedByHr(int? id)
     {
         var model = _dbContext.LeaveApplications.Find(id);
   
@@ -163,5 +163,21 @@ public class LeaveApplicationService
             _dbContext.SaveChanges();
         }
         
+    }
+
+    public void RejectByHr(int? id)
+    {
+        var model = _dbContext.LeaveApplications.Find(id);
+
+        if (model != null)
+        {
+            model.isApproved = 2;
+            model.ApprovalDate = DateTime.Now;
+            model.ApproavedBy = "HR";
+
+            _dbContext.LeaveApplications.Update(model);
+            _dbContext.SaveChanges();
+        }
+
     }
 }
