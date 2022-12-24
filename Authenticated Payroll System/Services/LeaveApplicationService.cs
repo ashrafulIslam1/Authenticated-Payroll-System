@@ -24,7 +24,7 @@ public class LeaveApplicationService
             // Here I assign the viewModel properties to the model properties
             Id = viewModel.Id,
 			EmployeeId = viewModel.EmployeeId,
-			ApplicationDate = viewModel.ApplicationDate,
+			ApplicationDate = DateTime.Now,
 			FromDate = viewModel.FromDate,
 			ToDate = viewModel.ToDate,
 			ReasonOfLeave = viewModel.ReasonOfLeave,
@@ -43,15 +43,11 @@ public class LeaveApplicationService
 		if (model == null)
 			throw new Exception();
 
-		//model.Id = viewModel.Id;
-		//model.EmployeeId = viewModel.EmployeeId;
-		model.ApplicationDate = viewModel.ApplicationDate;
+		model.ApplicationDate = DateTime.Now;
 		model.FromDate = viewModel.FromDate;
 		model.ToDate = viewModel.ToDate;
 		model.ReasonOfLeave = viewModel.ReasonOfLeave;
 		model.LeaveType = viewModel.LeaveType;
-		model.ApprovalDate = viewModel.ApprovalDate;
-		model.ApproavedBy = viewModel.ApproavedBy;
 
 		_dbContext.LeaveApplications.Update(model);
 		_dbContext.SaveChanges();

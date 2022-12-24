@@ -38,21 +38,6 @@
             <input asp-for="ToDate" type="date" class="form-control" />
             <span asp-validation-for="ToDate" class="text-danger"></span>
         </div>
-        <div class="col-md-4">
-            <label asp-for="ApplicationDate"></label>
-            <input asp-for="ApplicationDate" type="date" class="form-control" />
-            <span asp-validation-for="ApplicationDate" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="ApproavedBy"></label>
-            <input asp-for="ApproavedBy" class="form-control" />
-            <span asp-validation-for="ApproavedBy" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="ApprovalDate"></label>
-            <input asp-for="ApprovalDate" type="date" class="form-control" />
-            <span asp-validation-for="ApprovalDate" class="text-danger"></span>
-        </div>
         <div class="d-flex justify-content-between">
             <a asp-controller="LeaveApplication" asp-action="Index" class="btn btn-secondary" style="width:150px">
                 Go back

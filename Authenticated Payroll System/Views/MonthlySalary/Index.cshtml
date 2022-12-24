@@ -8,37 +8,69 @@
     <div class="row pt-4">
 
         <div class="d-flex justify-content-end shadow-sm p-3 pt-1 pb-0 mb-4 bg-body rounded">
-            <div class="col-6">
-                <p class="fs-4 fw-semibold text-primary">Salary List</p>
-            </div>
-            <div>
-                <form asp-action="Index" method="get">
-                    <div class="d-flex form-actions no-color">
-                        <div class="me-2">
-                            <input type="month" name="MonthYear" class="btn btn-outline-secondary btn-sm" />
-                        </div>
-                        <div class="d-flex me-2">
-                            @if (User.IsInRole("Hr"))
-                            {
-                                <div class="me-2">
-                                    <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
-                                        <option>Select Employee</option>
-                                    </select>
+            @if (User.IsInRole("Employee"))
+            {
+                <div class="col-9">
+                <p class="fs-4 fw-semibold text-primary">Monthly Salary</p>
+                </div>
+                <div>
+                    <form asp-action="Index" method="get">
+                        <div class="d-flex form-actions no-color">
+                            <div class="me-2">
+                                <input type="month" name="MonthYear" class="btn btn-outline-secondary btn-sm" />
+                            </div>
+                            <div class="d-flex me-2">
+                                @if (User.IsInRole("Hr"))
+                                {
+                                    <div class="me-2">
+                                        <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
+                                            <option>Select Employee</option>
+                                        </select>
+                                    </div>
+                                }
+                                <div>
+                                    <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
                                 </div>
-                            }
-                            <div>
-                                <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="col-6">
+                <p class="fs-4 fw-semibold text-primary">Monthly Salary</p>
+                </div>
+                <div>
+                    <form asp-action="Index" method="get">
+                        <div class="d-flex form-actions no-color">
+                            <div class="me-2">
+                                <input type="month" name="MonthYear" class="btn btn-outline-secondary btn-sm" />
+                            </div>
+                            <div class="d-flex me-2">
+                                @if (User.IsInRole("Hr"))
+                                {
+                                    <div class="me-2">
+                                        <select name="EmployeeId" class="form-control btn btn-outline-secondary btn-sm" asp-items="@ViewBag.employeelist">
+                                            <option>Select Employee</option>
+                                        </select>
+                                    </div>
+                                }
+                                <div>
+                                    <input type="submit" value="Submit" class="btn btn-dark btn-sm" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            }
+            
 
             @if(User.IsInRole("Hr"))
             {
                 <div>
                     <a asp-controller="MonthlySalary" asp-action="Genarate" class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-circle-fill"></i> &nbsp;Generate Salary
+                        <i class="bi bi-plus-circle-fill"></i> &nbsp;Generate
                     </a>
                 </div>
             }
@@ -94,13 +126,13 @@
                     @*<td width="10%">
                 @item.Id
                 </td>*@
-                    <td width="10%">
+                    <td width="8%">
                         @item.EmployeeId
                     </td>
                     <td width="13%">
                         @item.EmployeeName
                     </td>
-                    <td width="10%">
+                    <td width="5%">
                         @switch (@item.Month)
                         {
                             case 1:
@@ -148,22 +180,22 @@
                     <td width="5%">
                         @item.Year
                     </td>
-                    <td width="10%">
+                    <td width="8%">
                         @item.Basic Tk
                     </td>
-                    <td width="13%">
+                    <td width="11%">
                         @item.HomeAllowance Tk
                     </td>
-                    <td width="13%">
+                    <td width="12%">
                         @item.MedicalExpense Tk
                     </td>
-                    <td width="13%">
+                    <td width="10%">
                         @item.WorkingDays
                     </td>
-                    <td width="13%">
+                    <td width="10%">
                         @item.PresentDays
                     </td>
-                    <td width="15%">
+                    <td width="10%">
                         @item.LeaveDays
                     </td>
                     <td width="15%">

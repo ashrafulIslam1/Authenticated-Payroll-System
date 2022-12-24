@@ -85,7 +85,7 @@ public class MonthlySalaryService
                         HomeAllowance = e.HomeAllowance,
                         MedicalExpense = e.MedicalExpense,
                         PresentDays = a.PresentDays,
-                        TotalAbsentDays = totalDaysInMonth - a.PresentDays - (l == null ? 0 : l.LeaveDays) - noOfHolidays
+                        TotalAbsentDays = totalDaysInMonth - noOfHolidays - a.PresentDays + (l == null ? 0 : l.LeaveDays)
                     }).ToList();
 
         foreach (var item in data)
